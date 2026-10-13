@@ -11,6 +11,7 @@ __pycache__/
 # Public GitHub package excludes private production archives. These files stay
 # in the local workspace and are intentionally not added by `git add .`.
 /连载/
+/制作/
 
 # Keep generated and production media out of the public repository even if a
 # future task places a copy outside the local production archive.
