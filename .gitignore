@@ -1,0 +1,27 @@
+.DS_Store
+Thumbs.db
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+!.env.example
+工作流/config.local.*
+
+# Public GitHub package excludes private production archives. These files stay
+# in the local workspace and are intentionally not added by `git add .`.
+/连载/
+
+# Keep generated and production media out of the public repository even if a
+# future task places a copy outside the local production archive.
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.mp4
+*.mov
+*.avi
+*.mp3
+*.wav
+*.m4a
