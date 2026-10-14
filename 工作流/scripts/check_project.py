@@ -126,6 +126,13 @@ class Check:
                 seen.add(sid)
             actual = set(SHOT.findall(prompt_blocks.get(bid, "")))
             self.require(set(rows) == actual, f"{bid} 提示词镜头覆盖不一致：分镜{sorted(rows)}，提示词{sorted(actual)}")
+            prompt_text = prompt_blocks.get(bid, "")
+            # 连续性状态契约从第05集启用；历史集保持原审计口径，避免规则升级把旧稿误判为新稿缺陷。
+            if int(re.search(r"EP(\d+)_", bid).group(1)) >= 5:
+                for field in ("【空间硬锁】", "【入口状态】", "【本节唯一主要动作】", "【出口状态】", "【禁变清单】"):
+                    self.require(field in prompt_text, f"{bid} 缺少连续性字段：{field}")
+                self.require("严格承接上一节结束状态" not in prompt_text,
+                             f"{bid} 仍使用空泛的连续性承接语，需改为具体入口状态")
             for side in ("首帧", "尾帧"):
                 self.file(package / "镜头首帧" / f"{bid}_{side}.png")
         print(f"{series.name}/{episode.name}：{len(board_blocks)}节，{len(seen)}镜，{len(names)}个资产标识")
